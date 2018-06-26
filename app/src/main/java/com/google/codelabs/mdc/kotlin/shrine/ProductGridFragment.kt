@@ -1,10 +1,13 @@
 package com.google.codelabs.mdc.kotlin.shrine
 
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.*
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
 import com.google.codelabs.mdc.kotlin.shrine.staggeredgridlayout.StaggeredProductCardRecyclerViewAdapter
 import kotlinx.android.synthetic.main.shr_product_grid_fragment.view.*
@@ -21,8 +24,23 @@ class ProductGridFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.shr_product_grid_fragment, container, false)
 
+        // Set cut corner background for API 23+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // 삼각형 부분 shape
+            view.product_grid.background = context?.getDrawable(R.drawable.shr_product_grid_background_shape)
+        }
+
         // set up the toolbar
         (activity as AppCompatActivity).setSupportActionBar(view.app_bar)
+        // 메뉴 누르면 내려가는 부분 (애니메이션)
+//        view.app_bar.setNavigationOnClickListener(NavigationIconClickListener(activity!!, view.product_grid))
+//        view.app_bar.setNavigationOnClickListener(NavigationIconClickListener(activity!!, view.product_grid, AccelerateDecelerateInterpolator()))
+        view.app_bar.setNavigationOnClickListener(NavigationIconClickListener(
+                activity!!,
+                view.product_grid,
+                AccelerateDecelerateInterpolator(),
+                ContextCompat.getDrawable(context!!, R.drawable.shr_branded_menu), // Menu open icon
+                ContextCompat.getDrawable(context!!, R.drawable.shr_close_menu))) // Menu close icon
 
         // Set up the RecyclerView
         view.recycler_view.setHasFixedSize(true)
