@@ -35,6 +35,7 @@ class ProductGridFragment : Fragment() {
         // 메뉴 누르면 내려가는 부분 (애니메이션)
 //        view.app_bar.setNavigationOnClickListener(NavigationIconClickListener(activity!!, view.product_grid))
 //        view.app_bar.setNavigationOnClickListener(NavigationIconClickListener(activity!!, view.product_grid, AccelerateDecelerateInterpolator()))
+        // 메뉴 누르면 X로 바뀌게끔
         view.app_bar.setNavigationOnClickListener(NavigationIconClickListener(
                 activity!!,
                 view.product_grid,
@@ -50,9 +51,9 @@ class ProductGridFragment : Fragment() {
                 return if (position % 3 == 2) 2 else 1
             }
         }
+
         view.recycler_view.layoutManager = gridLayoutManager
-        val adapter = StaggeredProductCardRecyclerViewAdapter(
-                ProductEntry.initProductEntryList(resources))
+        val adapter = StaggeredProductCardRecyclerViewAdapter(ProductEntry.initProductEntryList(resources))
         view.recycler_view.adapter = adapter
         val largePadding = resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_large)
         val smallPadding = resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small)

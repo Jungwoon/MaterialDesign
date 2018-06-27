@@ -17,7 +17,7 @@ class ProductEntry(
 
     companion object {
         /**
-         * Loads a raw JSON at R.raw.products and converts it into a list of ProductEntry objects
+         * res/raw/product.json 으로부터 상품 리스트 읽어와서 List<ProductEntry>로 반환
          */
         fun initProductEntryList(resources: Resources): List<ProductEntry> {
             val inputStream = resources.openRawResource(R.raw.products)

@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity(), NavigationHost {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shr_main_activity)
 
+        // savedInstanceState : 액티비티의 상태 저장
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
